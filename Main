@@ -1,0 +1,61 @@
+public class Wymierna {
+
+    int licznik;
+    int mianownik;
+
+    public Wymierna(int licznik, int mianownik) {
+        this.licznik = licznik;
+        this.mianownik = mianownik;
+    }
+
+    @Override
+    public String toString() {
+        return "Wymierna{" +
+                "licznik=" + licznik +
+                ", mianownik=" + mianownik +
+                '}';
+    }
+
+
+    public static Wymierna odejmij(Wymierna ulamek1, Wymierna ulamek2) {
+        int wspolny = ulamek1.mianownik * ulamek2.mianownik;
+        int licznik1 = ulamek1.licznik * ulamek2.mianownik;
+        int licznik2 = ulamek2.licznik * ulamek1.mianownik;
+        int licznikNew = licznik1 - licznik2;
+
+        return new Wymierna(licznikNew, wspolny).skroc();
+    }
+
+    public static Wymierna podziel(Wymierna ulamek1, Wymierna ulamek2) {
+        int podzielony1 = ulamek1.licznik * ulamek2.mianownik;
+        int podzielony2 = ulamek1.mianownik * ulamek2.licznik;
+        return new Wymierna(podzielony1, podzielony2).skroc();
+    }
+
+
+    public Wymierna skroc() {
+        int nwd = NWD(Math.abs(licznik), Math.abs(mianownik));
+        if (nwd > 1) {
+            mianownik /= nwd;
+            licznik /= nwd;
+        }
+        return this;
+    }
+
+    ;
+
+
+    public static int NWD(int a, int b) {
+
+        while (a != b) {
+            if (a > b) {
+                a = a - b;
+            } else {
+                b = b - a;
+            }
+        }
+        return a;
+    }
+
+
+}
